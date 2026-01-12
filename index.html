@@ -1,209 +1,227 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Tuíra e Daiene</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        :root {
-            --gold: #c5a059;
-            --env-bg: #f3f0e9;
-            --env-border: #e5e2d9;
-            --letter-bg: #fdfaf0;
-        }
+<title>Presente de Casamento</title>
 
-        body {
-            background-color: #e8e8e8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            font-family: 'Georgia', serif;
-            overflow-x: hidden;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
 
-        .container {
-            position: relative;
-            width: 100%;
-            max-width: 850px;
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-        }
+<style>
+:root{
+    --gold:#c5a059;
+    --env:#f6f3ec;
+    --env-border:#e5e2d9;
+    --paper:#fffaf0;
+}
 
-        .envelope-wrapper {
-            position: relative;
-            cursor: pointer;
-            width: 100%;
-            max-width: 600px;
-            height: 400px;
-            transition: transform 0.8s;
-            transform-style: preserve-3d;
-        }
+body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#f5f2ec,#e9e4d8);
+    font-family:'Playfair Display',serif;
+}
 
-        .envelope-label {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: var(--gold);
-            font-size: clamp(24px, 5vw, 35px);
-            z-index: 45;
-            transition: opacity 0.4s;
-            font-family: 'Great Vibes', cursive;
-            white-space: nowrap;
-        }
+.container{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    padding:20px;
+}
 
-        .envelope {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            background-color: var(--env-bg);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            z-index: 10;
-        }
+.card{
+    position:relative;
+    max-width:650px;
+    width:100%;
+}
 
-        .flap {
-            position: absolute;
-            top: 0;
-            width: 0;
-            height: 0;
-            border-left: 300px solid transparent;
-            border-right: 300px solid transparent;
-            border-top: 220px solid var(--env-border);
-            transform-origin: top;
-            transition: transform 0.6s ease-in-out;
-            z-index: 40;
-        }
+/* BOTÃO */
+.open-btn{
+    display:block;
+    margin:0 auto 20px;
+    padding:12px 30px;
+    border:none;
+    border-radius:30px;
+    background:var(--gold);
+    color:#fff;
+    font-size:16px;
+    cursor:pointer;
+    transition:.3s;
+}
+.open-btn:hover{opacity:.85}
 
-        .pocket {
-            position: absolute;
-            bottom: 0;
-            width: 0;
-            height: 0;
-            border-left: 300px solid var(--env-bg);
-            border-right: 300px solid var(--env-bg);
-            border-bottom: 220px solid #edeae0;
-            z-index: 30;
-        }
+/* ENVELOPE */
+.envelope{
+    position:relative;
+    width:100%;
+    height:380px;
+    background:var(--env);
+    box-shadow:0 15px 40px rgba(0,0,0,.15);
+    overflow:hidden;
+}
 
-        .letter {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 95%;
-            max-height: 80vh;
-            background: var(--letter-bg);
-            padding: 30px;
-            box-sizing: border-box;
-            transition: all 0.9s ease-in-out;
-            z-index: 5;
-            opacity: 0;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            overflow-y: auto;
-        }
+.label{
+    position:absolute;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:'Great Vibes',cursive;
+    font-size:clamp(26px,6vw,38px);
+    color:var(--gold);
+    z-index:5;
+    transition:.4s;
+}
 
-        .letter img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 4px;
-            margin-bottom: 20px;
-        }
+.flap{
+    position:absolute;
+    top:0;
+    width:100%;
+    height:100%;
+    clip-path:polygon(0 0,50% 55%,100% 0);
+    background:var(--env-border);
+    transform-origin:top;
+    transition:.8s;
+    z-index:4;
+}
 
-        .letter h2 {
-            color: var(--gold);
-            font-size: clamp(30px, 8vw, 45px);
-            margin-bottom: 15px;
-            font-family: 'Great Vibes', cursive;
-        }
+.pocket{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:100%;
+    clip-path:polygon(0 100%,50% 45%,100% 100%);
+    background:#edeae0;
+    z-index:3;
+}
 
-        .letter p {
-            font-size: clamp(14px, 4vw, 18px);
-            line-height: 1.5;
-            color: #444;
-        }
+/* CARTA */
+.letter{
+    position:absolute;
+    inset:10px;
+    background:var(--paper);
+    padding:25px;
+    border-radius:6px;
+    text-align:center;
+    overflow-y:auto;
+    opacity:0;
+    transform:translateY(100%);
+    transition:1s;
+    z-index:2;
+}
 
-        .friends-list {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            font-size: clamp(18px, 5vw, 24px);
-            margin-top: 20px;
-            border-top: 1px solid #e2cfb0;
-            padding-top: 20px;
-            font-family: 'Great Vibes', cursive;
-            color: #555;
-        }
+.letter img{
+    width:100%;
+    max-width:350px;
+    border-radius:8px;
+    margin-bottom:20px;
+}
 
-        /* AJUSTES PARA CELULAR */
-        @media (max-width: 600px) {
-            .envelope-wrapper {
-                height: 250px;
-            }
-            .flap {
-                border-left-width: 150px;
-                border-right-width: 150px;
-                border-top-width: 110px;
-            }
-            .pocket {
-                border-left-width: 150px;
-                border-right-width: 150px;
-                border-bottom-width: 110px;
-            }
-            .friends-list {
-                grid-template-columns: repeat(2, 1fr); /* 2 colunas no celular */
-            }
-            .open .envelope-wrapper { transform: translateY(150px); }
-            .open .letter { transform: translateX(-50%) translateY(-380px); width: 90vw; }
-        }
+.letter h2{
+    font-family:'Great Vibes',cursive;
+    color:var(--gold);
+    font-size:clamp(30px,7vw,46px);
+    margin:10px 0;
+}
 
-        /* ESTADO ABERTO (DESKTOP) */
-        @media (min-width: 601px) {
-            .open .envelope-wrapper { transform: translateY(300px); }
-            .open .letter { transform: translateX(-50%) translateY(-750px); width: 850px; }
-        }
+.letter p{
+    font-size:clamp(14px,3.8vw,18px);
+    line-height:1.6;
+    color:#444;
+}
 
-        .open .flap { transform: rotateX(180deg); z-index: 0; }
-        .open .envelope-label { opacity: 0; }
-        .open .letter { opacity: 1; z-index: 50; }
-    </style>
+.friends{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(110px,1fr));
+    gap:8px;
+    margin-top:25px;
+    padding-top:15px;
+    border-top:1px solid #e3cfae;
+    font-family:'Great Vibes',cursive;
+    font-size:22px;
+    color:#555;
+}
+
+/* ABERTO */
+.open .flap{transform:rotateX(180deg)}
+.open .label{opacity:0}
+.open .letter{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* MOBILE */
+@media(max-width:600px){
+    .envelope{height:300px}
+}
+</style>
 </head>
+
 <body>
 
-    <div class="container" id="cardContainer" onclick="this.classList.toggle('open')">
-        <div class="envelope-wrapper">
-            <div class="envelope-label">Para: Tuíra e Daiene</div>
-            <div class="envelope">
-                <div class="flap"></div>
-                <div class="pocket"></div>
-                <div class="letter">
-                    <img src="imagem_tuira.png" alt="Noivas">
-                    <h2>Tuíra e Daiene,</h2>
-                    <p>Parabéns pelo casamento! </p>
-                    <p>Nós, seus amigos do CRQ-1, nos unimos para presentear vocês nesse momento tão especial. </p>
-                    <p>Sabemos que já têm o cantinho montado, então decidimos fazer uma 'vaquinha' para usarem como preferirem! </p>
-                    <p><strong>PIX enviado: R$ 1.535,00 </strong></p>
-                    <p><em>Com muito carinho: </em></p>
-                    <div class="friends-list">
-                        <span>Alfonso</span> <span>Amanda</span> <span>Ana Paim</span>
-                        <span>Antonio</span> <span>Aparecida</span> <span>Ana Catarina</span>
-                        <span>Clara</span> <span>Fernando</span> <span>Flavia</span>
-                        <span>Georgio</span> <span>Giselda</span> <span>Gustavo</span>
-                        <span>Hermano</span> <span>Isadora</span> <span>Janaina</span>
-                        <span>Juliana</span> <span>Luis Fernando</span> <span>Marcelo</span>
-                        <span>Patricia</span> <span>Paulo</span> <span>Rodrigo</span> 
-                        <span>Yasmim</span>
-                    </div>
-                </div>
-            </div>
+<div class="container">
+<div class="card" id="card">
+
+<button class="open-btn" onclick="toggleCard()">💌 Abrir carta</button>
+
+<div class="envelope">
+    <div class="label">Para: Tuíra & Daiene</div>
+    <div class="flap"></div>
+    <div class="pocket"></div>
+
+    <div class="letter">
+        <img src="imagem_tuira.png" alt="Noivas">
+
+        <h2>Tuíra & Daiene</h2>
+
+        <p>Que este novo capítulo seja repleto de amor, cumplicidade e muitas conquistas.</p>
+
+        <p>Nós, seus amigos do <strong>CRQ-1</strong>, nos unimos para celebrar esse momento tão especial.</p>
+
+        <p>Como vocês já têm o cantinho montado, fizemos uma vaquinha para usarem como quiserem.</p>
+
+        <p><strong>💳 PIX enviado: R$ 1.535,00</strong></p>
+
+        <p><em>Com muito carinho,</em></p>
+
+        <div class="friends">
+            <span>Alfonso</span>
+            <span>Amanda</span>
+            <span>Ana Paim</span>
+            <span>Antonio</span>
+            <span>Aparecida</span>
+            <span>Ana Catarina</span>
+            <span>Clara</span>
+            <span>Fernando</span>
+            <span>Flávia</span>
+            <span>Georgio</span>
+            <span>Giselda</span>
+            <span>Gustavo</span>
+            <span>Hermano</span>
+            <span>Isadora</span>
+            <span>Janaina</span>
+            <span>Juliana</span>
+            <span>Luis Fernando</span>
+            <span>Marcelo</span>
+            <span>Patricia</span>
+            <span>Paulo</span>
+            <span>Rodrigo</span>
+            <span>Yasmim</span>
         </div>
     </div>
+</div>
+</div>
+</div>
+
+<script>
+function toggleCard(){
+    document.getElementById('card').classList.toggle('open');
+}
+</script>
 
 </body>
 </html>
-
