@@ -3,216 +3,188 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Presente de Casamento - CRQ-1</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+    <title>Para Tuíra e Daiene</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600&display=swap');
+
         :root {
             --gold: #c5a059;
-            --env: #f6f3ec;
+            --env-bg: #f3f0e9;
             --env-border: #e5e2d9;
-            --paper: #fdfaf0;
+            --letter-bg: #fdfaf0;
         }
 
         body {
-            margin: 0;
-            min-height: 100vh;
+            background-color: #e8e8e8;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #e8e8e8;
+            min-height: 100vh;
+            margin: 0;
             font-family: 'Playfair Display', serif;
-            padding: 20px;
-            box-sizing: border-box;
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
-        .card-container {
+        .container {
             position: relative;
             width: 100%;
-            max-width: 600px;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
         }
 
-        .open-btn {
-            background: var(--gold);
-            color: white;
-            border: none;
-            padding: 12px 35px;
-            border-radius: 25px;
-            font-size: 18px;
-            cursor: pointer;
-            margin-bottom: 30px;
-            transition: 0.3s;
-            z-index: 100;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .envelope {
+        /* ENVELOPE CORRIGIDO */
+        .envelope-wrapper {
             position: relative;
-            width: 100%;
-            height: 350px;
-            background: var(--env);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-            z-index: 10;
+            cursor: pointer;
+            width: 90vw;
+            max-width: 500px;
+            height: 320px;
+            background-color: var(--env-bg);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: transform 0.8s;
         }
 
-        .label {
+        .envelope-label {
             position: absolute;
             inset: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Great Vibes', cursive;
-            font-size: clamp(24px, 6vw, 36px);
             color: var(--gold);
-            z-index: 15;
-            transition: 0.4s;
+            font-size: clamp(24px, 6vw, 32px);
+            z-index: 10;
+            transition: opacity 0.4s;
+            font-family: 'Great Vibes', cursive;
         }
 
+        /* Abas do envelope usando clip-path para não deformar */
         .flap {
             position: absolute;
             top: 0;
             width: 100%;
             height: 100%;
-            background: var(--env-border);
-            clip-path: polygon(0 0, 50% 50%, 100% 0);
+            background-color: var(--env-border);
+            clip-path: polygon(0 0, 50% 55%, 100% 0);
             transform-origin: top;
             transition: transform 0.6s ease-in-out;
-            z-index: 14;
+            z-index: 5;
         }
 
         .pocket {
             position: absolute;
-            bottom: 0;
+            top: 0;
             width: 100%;
             height: 100%;
-            background: var(--env);
-            clip-path: polygon(0 100%, 50% 45%, 100% 100%);
-            z-index: 13;
+            background-color: var(--env-bg);
+            clip-path: polygon(0 100%, 50% 45%, 100% 100%, 100% 100%, 0 100%);
+            z-index: 4;
+            box-shadow: inset 0 -5px 10px rgba(0,0,0,0.05);
         }
 
+        /* CARTA CENTRALIZADA */
         .letter {
-            position: absolute;
-            top: 0;
+            position: fixed;
+            top: 50%;
             left: 50%;
-            transform: translate(-50%, 0);
-            width: 90%;
-            background: var(--paper);
-            padding: 30px;
+            transform: translate(-50%, -50%) scale(0);
+            width: 90vw;
+            max-width: 650px;
+            max-height: 90vh;
+            background: var(--letter-bg);
+            padding: clamp(20px, 5vw, 40px);
             box-sizing: border-box;
-            transition: all 0.8s ease-in-out;
-            z-index: 5;
+            transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+            z-index: 100;
             opacity: 0;
             text-align: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            max-height: 85vh;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
             overflow-y: auto;
-            visibility: hidden;
+            border-radius: 4px;
         }
 
         .letter img {
             width: 100%;
-            max-width: 400px;
+            max-width: 350px;
+            height: auto;
             border-radius: 8px;
             margin-bottom: 20px;
         }
 
         .letter h2 {
-            font-family: 'Great Vibes', cursive;
             color: var(--gold);
-            font-size: 42px;
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(30px, 8vw, 45px);
             margin: 10px 0;
         }
 
         .letter p {
-            font-size: 17px;
+            font-size: clamp(15px, 4vw, 18px);
             line-height: 1.6;
             color: #444;
-            margin: 15px 0;
+            margin: 10px 0;
         }
 
         .friends-list {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 10px;
-            font-family: 'Great Vibes', cursive;
-            font-size: 24px;
-            color: #555;
             margin-top: 25px;
             padding-top: 20px;
             border-top: 1px solid #e2cfb0;
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(20px, 5vw, 24px);
+            color: #555;
         }
 
-        /* ANIMAÇÃO DE ABERTURA */
+        /* ESTADO ABERTO */
         .open .flap {
             transform: rotateX(180deg);
-            z-index: 0;
         }
 
-        .open .label {
+        .open .envelope-label {
             opacity: 0;
         }
 
         .open .letter {
             opacity: 1;
-            visibility: visible;
-            z-index: 200;
-            transform: translate(-50%, -380px);
+            transform: translate(-50%, -50%) scale(1);
         }
 
         @media (max-width: 600px) {
-            .envelope { height: 280px; }
-            .open .letter { 
-                width: 95vw; 
-                transform: translate(-50%, -350px);
-            }
-            .friends-list { font-size: 20px; }
+            .envelope-wrapper { height: 280px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="card-container" id="card">
-        <button class="open-btn" onclick="toggleCard()">💌 Abrir mensagem</button>
-
-        <div class="envelope">
-            <div class="label">Para: Tuíra & Daiene</div>
+    <div class="container" id="mainContainer" onclick="this.classList.toggle('open')">
+        <div class="envelope-wrapper">
+            <div class="envelope-label">Para: Tuíra e Daiene</div>
             <div class="flap"></div>
             <div class="pocket"></div>
-
+            
             <div class="letter">
-                <img src="imagem_tuira.png" alt="Tuíra e Daiene">
-                
-                <h2>Tuíra & Daiene,</h2>
+                <img src="imagem_tuira.png" alt="Noivas">
+                <h2>Tuíra e Daiene,</h2>
                 <p>Parabéns pelo casamento!</p>
-                <p>Nós, seus amigos do CRQ-1, nos unimos para presentear vocês nesse momento tão especial.</p>
+                <p>Nós, seus amigos do <strong>CRQ-1</strong>, nos unimos para presentear vocês nesse momento tão especial.</p>
                 <p>Como vocês já têm o cantinho montado, decidimos fazer uma 'vaquinha' para usarem como preferirem!</p>
-                <p><strong>💰 PIX enviado: R$ 1.535,00</strong></p>
-                
+                <p><strong>PIX enviado: R$ 1.535,00</strong></p>
                 <p><em>Com muito carinho:</em></p>
                 <div class="friends-list">
-                    <span>Alfonso</span> <span>Amanda</span>
-                    <span>Ana Paim</span> <span>Antonio</span>
-                    <span>Aparecida</span> <span>Ana Catarina</span>
-                    <span>Clara</span> <span>Fernando</span>
-                    <span>Flavia</span> <span>Georgio</span>
-                    <span>Giselda</span> <span>Gustavo</span>
-                    <span>Hermano</span> <span>Isadora</span>
-                    <span>Janaina</span> <span>Juliana</span>
-                    <span>Luis F.</span> <span>Marcelo</span>
-                    <span>Patricia</span> <span>Paulo</span>
-                    <span>Rodrigo</span> <span>Yasmim</span>
+                    <span>Alfonso</span> <span>Amanda</span> <span>Ana Paim</span>
+                    <span>Antonio</span> <span>Aparecida</span> <span>Ana Catarina</span>
+                    <span>Clara</span> <span>Fernando</span> <span>Flavia</span>
+                    <span>Georgio</span> <span>Giselda</span> <span>Gustavo</span>
+                    <span>Hermano</span> <span>Isadora</span> <span>Janaina</span>
+                    <span>Juliana</span> <span>Luis Fernando</span> <span>Marcelo</span>
+                    <span>Patricia</span> <span>Paulo</span> <span>Rodrigo</span>
+                    <span>Yasmim</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <script>
-        function toggleCard() {
-            document.getElementById('card').classList.toggle('open');
-        }
-    </script>
 </body>
 </html>
